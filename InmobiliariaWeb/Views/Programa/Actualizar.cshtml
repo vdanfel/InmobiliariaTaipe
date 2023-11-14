@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Tittle"] = "Actualizar Programa";
+}
+<div class="container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="ProgramaTab" data-bs-toggle="tab" data-bs-target="#ProgramaTabPane" type="button" role="tab" aria-controls="ProgramaTabPane" aria-selected="true">Programa</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="PropietarioTab" data-bs-toggle="tab" data-bs-target="#PropietarioTabPane" type="button" role="tab" aria-controls="PropietarioTabPane" aria-selected="false">Propietario</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link disabled" id="ManzanaTab" data-bs-toggle="tab" data-bs-target="#ManzanaTabPane" type="button" role="tab" aria-controls="ManzanaTabPane" aria-selected="false" aria-disabled="true">Manzana</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link disabled" id="LoteTab" data-bs-toggle="tab" data-bs-target="#LoteTabPane" type="button" role="tab" aria-controls="LoteTabPane" aria-selected="false" aria-disabled="true">Lote</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="ProgramaTabPane" role="tabpanel" aria-labelledby="ProgramaTab" tabindex="0">
+            <partial name="_ProgramaActualizar" />
+        </div>
+        <div class="tab-pane fade" id="PropietarioTabPane" role="tabpanel" aria-labelledby="PropietarioTab" tabindex="0">
+            <partial name="_Propietario" />
+        </div>
+        <div class="tab-pane fade" id="ManzanaTabPane" role="tabpanel" aria-labelledby="ManzanaTab" tabindex="0">
+            <partial name="_Manzana" />
+        </div>
+        <div class="tab-pane fade" id="LoteTabPane" role="tabpanel" aria-labelledby="LoteTab" tabindex="0">
+            <partial name="_Lote" />
+        </div>
+    </div>
+</div>
+@section scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+}

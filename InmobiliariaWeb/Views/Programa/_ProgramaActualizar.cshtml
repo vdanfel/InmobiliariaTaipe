@@ -1,0 +1,87 @@
+﻿@model InmobiliariaWeb.Models.Programa.ViewPrograma
+@{
+}
+<form asp-action="Actualizar" method="post">
+    <div class="card mt-3">
+        <div class="card-header fw-bold">
+            Datos del Programa
+        </div>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">Nombre</label>
+                </div>
+                <div class="col-lg-10 col-sm-12">
+                    <input type="text" class="form-control" asp-for="@Model.NombrePrograma" />
+                    <span asp-validation-for="@Model.NombrePrograma" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">N° Partida</label>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <input type="text" class="form-control" asp-for="@Model.NumeroPartida" />
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">N° Código</label>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <input type="text" class="form-control" asp-for="@Model.Codigo" readonly/>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">Dirección</label>
+                </div>
+                <div class="col-lg-10 col-sm-12">
+                    <input type="text" class="form-control" asp-for="@Model.Direccion" />
+                    <span asp-validation-for="@Model.Direccion" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">Referencia</label>
+                </div>
+                <div class="col-lg-10 col-sm-12">
+                    <input type="text" class="form-control" asp-for="@Model.Referencia" />
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">Area Total</label>
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <input type="number" class="form-control" asp-for="@Model.AreaTotal" />
+                    <span asp-validation-for="@Model.AreaTotal" class="text-danger"></span>
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">Area Lotizada</label>
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <input type="number" class="form-control" asp-for="@Model.AreaLotizada" />
+                    <span asp-validation-for="@Model.AreaLotizada" class="text-danger"></span>
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">Cantidad Mz</label>
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <input type="number" class="form-control" asp-for="@Model.CantidadManzanas" />
+                    <span asp-validation-for="@Model.CantidadManzanas" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">Suministro</label>
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <input type="text" class="form-control" asp-for="@Model.Suministro" />
+                </div>
+            </div>
+            <div class="row">
+                <button class="btn btn-lg btn-outline-info" type="submit">ACTUALIZAR</button>
+                <a class="btn btn-lg btn-outline-danger">ELIMINAR</a>
+            </div>
+        </div>
+    </div>
+</form>

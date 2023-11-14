@@ -1,0 +1,65 @@
+﻿@model PersonaViewModel
+@{
+    ViewData["Tittle"] = "Registro de Personas";
+}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="row row-cols-2">
+                <div class="col col-lg-10 col-md-9 col-sm-9">
+                    <h1>CLIENTES</h1>
+                </div>
+                <div class="col col-lg-2 col-md-3 col-sm-3 text-end m-auto">
+                    <a class="btn btn-outline-success" asp-controller="Persona" asp-action="Crear">
+                        Nuevo
+                        <i class="bi bi-file-earmark-richtext"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <form asp-action="Index" method="post">
+            <div class="card-body">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Ingrese Nombre o Documento" aria-label="Ingrese Nombre o Documento" aria-describedby="btnFiltrar" asp-for="@Model.Buscar">
+                    @*<button class="btn btn-outline-secondary" id="btnFiltrar" asp-for="">Filtrar</button>*@
+                    <button class="btn btn-outline-secondary" type="submit">Filtrar</button>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</div>
+<div class="container">
+    <div class="row mt-3">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Apellidos y Nombres</th>
+                    <th>Tipo Documento</th>
+                    <th>N° Documento</th>
+                    <th>🔍︎</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.PersonaList != null && Model.PersonaList.Any())
+                {
+                    @foreach (var personas in Model.PersonaList)
+                    {
+                        <tr>
+                            <td>@personas.Indice</td>
+                            <td>@personas.NombreCompleto</td>
+                            <td>@personas.TipoDocumento</td>
+                            <td>@personas.Documento</td>
+                            <td>
+                                <a class="btn btn-outline-warning" asp-action="Actualizar" asp-route-IdentPersona="@personas.Ident_Persona">
+                                    <i class="bi bi-eye-fill"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

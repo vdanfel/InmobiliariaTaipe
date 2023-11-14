@@ -1,0 +1,304 @@
+﻿@model InmobiliariaWeb.Result.Persona.PersonaList
+@{
+    ViewData["Title"] = "Actualizar Persona";
+}
+<form asp-action="PersonaActualizar" method="post">
+    <div class="container">
+        <div hidden>
+            <input type="text" readonly asp-for="@Model.Ident_Persona"/>
+        </div>
+        <div class="row mb-2">
+            <div class="col-lg-2 col-md-3 col-sm-12">
+                <label class="col-form-label">Tipo Documento:</label>
+            </div>
+            <div class="col-lg-4 col-md-3 col-sm-12">
+                <input type="text" asp-for="@Model.TipoDocumento" class="form-control" readonly />
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-12">
+                <label class="col-form-label">Documento:</label>
+            </div>
+            <div class="col-lg-4" col-md-3 col-sm-12">
+                <input type="text" class="form-control" asp-for="@Model.Documento" readonly />
+            </div>
+        </div>
+        <div class="card" id="personaNaturalCard">
+            <div class="card-header">
+                <div class="row">
+                    Persona Natural
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row mb-2">
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Nombres:</label>
+                    </div>
+                    <div class="col-lg-10 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.Nombre" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Paterno:</label>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.Paterno" />
+                    </div>
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Materno:</label>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.Materno" />
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Estado Civil:</label>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <select class="form-select" asp-for="@Model.Ident006TipoEstadoCivil">
+                            <option value=""></option>
+                            @foreach (var tipoEstadoCivil in Model.TipoEstadoCivil)
+                            {
+                                <option value="@tipoEstadoCivil.Ident_006_TipoEstadoCivil">@tipoEstadoCivil.Descripcion</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Fecha Nacimiento:</label>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <input type="date" class="form-control" asp-for="@Model.FechaNacimiento" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-2" id="personaJuridicaCard">
+            <div class="card-header">
+                Persona Jurídica
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Razón Social</label>
+                    </div>
+                    <div class="col-lg-10 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.RazonSocial" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-2">
+            <div class="card-body">
+                <div class="row g-2">
+                    <div class="col-lg-1 col-md-2 col-sm-12">
+                        <label class="col-form-label">Celular:</label>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.Celular" />
+                        <span class="text-danger" asp-validation-for="@Model.Celular"></span>
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-sm-12">
+                        <label class="col-form-label">Teléfono:</label>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.Telefono" />
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-sm-12">
+                        <label class="col-form-label">Correo:</label>
+                    </div>
+                    <div class="col-lg-5 col-md-10 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.Correo" />
+                        <span class="text-danger" asp-validation-for="@Model.Correo"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Departamento:</label>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <select class="form-select" asp-for="@Model.CodigoDepartamento" id="departamentoSelect">
+                            <option value="0"></option>
+                            @foreach (var departamentos in Model.ListDepartamento)
+                            {
+                                <option value="@departamentos.CodigoDepartamento">@departamentos.DescripcionDepartamento</option>
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="@Model.CodigoDepartamento"></span>
+                    </div>
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Provincia:</label>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <select class="form-select" id="provinciaSelect" asp-for="@Model.CodigoProvincia">
+                        </select>
+                        <span class="text-danger" asp-validation-for="@Model.CodigoProvincia"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Distrito:</label>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <select class="form-select" id="distritoSelect" asp-for="@Model.CodigoDistrito">
+                        </select>
+                        <span class="text-danger" asp-validation-for="@Model.CodigoDistrito"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Dirección:</label>
+                    </div>
+                    <div class="col-lg-10 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.Direccion" />
+                        <span class="text-danger" asp-validation-for="@Model.Direccion"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Referencia:</label>
+                    </div>
+                    <div class="col-lg-10 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.Referencia" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-2">
+            <div class="card-header">
+                Contacto
+            </div>
+            <div class="card-body">
+                <div class="row mt-2">
+                    <div class="col-lg-2 col-sm-12">
+                        <label class="col-form-label">Nombre Contacto:</label>
+                    </div>
+                    <div class="col-lg-10 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.Contacto" />
+                    </div>
+                </div>
+                <div class="row mt-2 g-2">
+                    <div class="col-lg-1 col-md-2 col-sm-12">
+                        <label class="col-form-label">Celular:</label>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.TelefonoContacto" />
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-sm-12">
+                        <label class="col-form-label">Teléfono:</label>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.TelefonoContacto" />
+                    </div>
+                    <div class="col-lg-1 col-md-2 col-sm-12">
+                        <label class="col-form-label">Correo:</label>
+                    </div>
+                    <div class="col-lg-5 col-md-10 col-sm-12">
+                        <input type="text" class="form-control" asp-for="@Model.CorreoContacto" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-lg-6 col-sm-12">
+                <button id="actualizarButton" type="submit" class="btn btn-lg btn-outline-secondary fw-bold">ACTUALIZAR</button>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <a id="anularButton" asp-action="PersonaAnular" asp-route-ident_Persona="@Model.Ident_Persona" class="btn btn-lg btn-outline-danger fw-bold">ANULAR</a>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+@if (!string.IsNullOrEmpty(Model.Mensaje))
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    @Model.Mensaje
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    // Oculta el card de Persona Jurídica inicialmente
+    document.getElementById('personaJuridicaCard').style.display = 'none';
+
+    var tipoDocumento = '@Model.Ident_001_TipoDocumento';
+    if(tipoDocumento == '28')
+    {
+        personaJuridicaCard.style.display = 'block';
+        personaNaturalCard.style.display = 'none';
+    }
+    else
+    {
+        personaJuridicaCard.style.display = 'none';
+        personaNaturalCard.style.display = 'block';
+    }
+
+    var mensajeError = '@Model.Mensaje';
+    if (mensajeError && mensajeError.trim() !== '') {
+        $(window).load(function () {
+            $('#myModal').modal('show');
+        });
+    };
+    $(document).ready(function () {
+        ObtenerProvincia('@Model.CodigoDepartamento', '@Model.CodigoProvincia');
+        ObtenerDistrito('@Model.CodigoDepartamento', '@Model.CodigoProvincia', '@Model.CodigoDistrito');
+        $("#departamentoSelect").on("change", function () {
+            var selectedDepartamento = $("#departamentoSelect").val();
+            if (selectedDepartamento !== "0") {
+                ObtenerProvincia(selectedDepartamento, '00');
+                ObtenerDistrito(selectedDepartamento, selectedProvincia, '00');
+            } else {
+                $("#provinciaSelect").empty();
+                $("#distritoSelect").empty();
+            }
+        });
+        $("#provinciaSelect").on("change", function () {
+            var selectedProvincia = $("#provinciaSelect").val();
+            var selectedDepartamento = $("#departamentoSelect").val();
+            if (selectedProvincia !== "0") {
+                ObtenerDistrito(selectedDepartamento, selectedProvincia, '00');
+            } else {
+                $("#distritoSelect").empty();
+            }
+        });
+        $("#actualizarButton").click(function () {
+            // Cuando se hace clic en el botón "ACTUALIZAR", establece el valor de "boton" en 0.
+            $("input[name=boton]").val("0");
+        });
+
+        $("#anularButton").click(function () {
+            // Cuando se hace clic en el botón "ANULAR", establece el valor de "boton" en 1.
+            $("input[name=boton]").val("1");
+        });
+    });
+    function ObtenerProvincia(departamento, defaults) {
+        $.get("/Persona/CargarProvincias", { departamento: departamento }, function (data) {
+            $("#provinciaSelect").empty();
+            $("#provinciaSelect").append('<option value="0"></option>');
+            $.each(data, function (index, item) {
+                $("#provinciaSelect").append('<option value="' + item.codigoProvincia + '">' + item.descripcionProvincia + '</option>');
+            });
+            $("#provinciaSelect").val(defaults);
+        });
+    }
+    function ObtenerDistrito(departamento, provincia, defaults) {
+        $.get("/Persona/CargarDistritos", { departamento: departamento, provincia: provincia }, function (data) {
+            $("#distritoSelect").empty();
+            $("#distritoSelect").append('<option value="0"></option>');
+            $.each(data, function (index, item) {
+                $("#distritoSelect").append('<option value="' + item.codigoDistrito + '">' + item.descripcionDistrito + '</option>');
+            });
+            $("#distritoSelect").val(defaults);
+        });
+    }
+</script>
