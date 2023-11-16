@@ -1,97 +1,259 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
 }
-<div class="card mt-3">
-    <div class="card-header fw-bold">
-        Propietario/Apoderado
+    <input type="hidden" id="IdentPersona" />
+    <input value="@Model.IdentPrograma" hidden id="IdentPrograma" />
+    <div class="card mt-3">
+        <div class="card-header fw-bold">
+            Propietario/Apoderado
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Nombre o Documento" aria-label="Recipient's username" aria-describedby="BuscarPersona" id="inputBusqueda">
+                    <button class="btn btn-outline-secondary" type="button" id="BuscarPersona">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row g-1 mb-3">
+                <div class="col-lg-8 col-sm-12">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="Nombre" placeholder="Apellidos y Nombres" readonly>
+                        <label for="Nombre">Apellidos y Nombres</label>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 ">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="Documento" placeholder="Nro Documento" readonly>
+                        <label for="Documento">Nro Documento</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-1">
+                <div class="col-lg-5 col-md-5 col-sm-6">
+                    <div class="form-floating">
+                        <select class="form-select" id="tipoPropietario" aria-label="Tipo Propietario">
+                            <option value="0"></option>
+                            @foreach (var tipoPropietario in Model.TipoPropietario)
+                            {
+                                <option value="@tipoPropietario.Ident_011_TipoPropietario">@tipoPropietario.Descripcion</option>
+                            }
+                        </select>
+                        <label for="tipoPropietario">Tipo Propietario</label>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 col-sm-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="PartidaPropietario" placeholder="Nro. Partida">
+                        <label for="PartidaPropietario">Nro. Partida</label>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-12">
+                <button class="btn btn-outline-success col-form-label" style="width:100px; height:100%" id="RegistrarPropietario">
+                        <i class="bi bi-person" style="font-size:1.5em"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <table class="table table-hover" id="propietarios">
+                    <thead class="table-dark">
+                        <tr class="text-center">
+                            <th>N°</th>
+                            <th hidden>IDENT_PROGRAMAPROPIETARIO.</th>
+                            <th>Apellidos y Nombres</th>
+                            <th>Tipo</th>
+                            <th>🔍︎</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var propietarios in Model.viewPropietarios)
+                    {
+                        <tr>
+                            <th class="text-center">@propietarios.Indice</th>
+                            <th hidden>@propietarios.IdentProgramaPropietario</th>
+                            <th>@propietarios.NombreCompleto</th>
+                            <th class="text-center">@propietarios.TipoPropietario</th>
+                            <th class="text-center">
+                                <a href="#" class="btn btn-outline-danger">
+                                    <i class="bi bi-person"></i>
+                                </a>
+                            </th>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Nombre o Documento" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">
-                    <i class="bi bi-search"></i>
-                </button>
+<!-- Modal -->
+<div class="modal fade" id="registroExitosoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-        <div class="row g-1">
-            <div class="col-lg-8 col-sm-12">
-                <div class="form-floating">
-                    <input type="email" class="form-control" id="Nombre" placeholder="Apellidos y Nombres" readonly>
-                    <label for="Nombre">Apellidos y Nombres</label>
-                </div>
+            <div class="modal-body">
+                Se Registró con Éxito
             </div>
-            <div class="col-lg-4 col-sm-12 ">
-                <div class="row align-content-center align-items-center">
-                    <div class="col-10">
-                        <div class="form-floating">
-                            <input type="email" class="form-control" id="Documento" placeholder="Nro Documento" readonly>
-                            <label for="Documento">Nro Documento</label>
-                        </div>
-                    </div>
-                    <div class="col-2 float-end">
-                        <button class="btn btn-outline-success col-form-label">
-                            <i class="bi bi-person" style="font-size:1.5em"></i>
-                        </button>
-                    </div>
-                </div>
-                
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
-        </div>
-        
-        <div class="row mt-3">
-            <table class="table table-dark">
-                <thead>
-                    <tr class="text-center">
-                        <th>N°</th>
-                        <th>T.Docu.</th>
-                        <th>Documento</th>
-                        <th>Apellidos y Nombres</th>
-                        <th>Tipo</th>
-                        <th>🔍︎</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @*<tr class="m-auto">
-                        <td class="text-center">1</td>
-                        <td class="text-center">DNI</td>
-                        <td class="text-center">45586417</td>
-                        <td>FELIPA TEJADA, VICTOR DANIEL</td>
-                        <td class="text-center">APODERADO</td>
-                        <td class="text-center">
-                            <a class="btn btn-outline-danger">
-                                <i class="bi bi-person-x-fill"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="m-auto">
-                        <td class="text-center">1</td>
-                        <td class="text-center">DNI</td>
-                        <td class="text-center">45586417</td>
-                        <td>FELIPA TEJADA, VICTOR DANIEL</td>
-                        <td class="text-center">PROPIETARIO</td>
-                        <td class="text-center">
-                            <a class="btn btn-outline-danger">
-                                <i class="bi bi-person-x-fill"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="m-auto">
-                        <td class="text-center">1</td>
-                        <td class="text-center">DNI</td>
-                        <td class="text-center">45586417</td>
-                        <td>FELIPA TEJADA, VICTOR DANIEL</td>
-                        <td class="text-center">APODERADO</td>
-                        <td class="text-center">
-                            <a class="btn btn-outline-danger">
-                                <i class="bi bi-person-x-fill"></i>
-                            </a>
-                        </td>
-                    </tr>*@
-                </tbody>
-            </table>
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#BuscarPersona").click(function () {
+            var valorBusqueda = $("#inputBusqueda").val();
+
+            $.ajax({
+                url: '/Programa/BuscarPersonas',
+                type: 'GET',
+                data: { buscar: valorBusqueda },
+                success: function (data) {
+                    if (data.length === 1) {
+                        $("#Nombre").val(data[0].nombreCompleto);
+                        $("#Documento").val(data[0].documento);
+                        $("#IdentPersona").val(data[0].ident_Persona);
+                    } else if (data.length > 1) {
+                        mostrarResultados(data);
+                    } else {
+                        console.log("No se encontraron resultados");
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
+
+        function mostrarResultados(resultados) {
+            // Crea el modal
+            var modalHTML = "<div class='modal fade' id='resultadosModal' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>";
+            modalHTML += "<div class='modal-dialog' role='document'>";
+            modalHTML += "<div class='modal-content'>";
+            modalHTML += "<div class='modal-header'>";
+            modalHTML += "<h5 class='modal-title' id='exampleModalLabel'>Resultados de la Búsqueda</h5>";
+            modalHTML += "<button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+            modalHTML += "</div>";
+            modalHTML += "<div class='modal-body'>";
+
+            var tablaResultados = "<table class='table table-hover'>";
+            tablaResultados += "<thead><tr><th>N°</th><th hidden>IDENT_PERSONA</th><th hidden>TIPO_DOCUMENTO</th><th hidden>DOCUMENTO</th><th>Apellidos y Nombres</th></tr></thead><tbody>";
+
+            for (var i = 0; i < resultados.length; i++) {
+                tablaResultados += "<tr>";
+                tablaResultados += "<td>" + (i + 1) + "</td>";
+                tablaResultados += "<td hidden>" + resultados[i].ident_Persona + "</td>";
+                tablaResultados += "<td hidden>" + resultados[i].tipoDocumento + "</td>";
+                tablaResultados += "<td hidden>" + resultados[i].documento + "</td>";
+                tablaResultados += "<td>" + resultados[i].nombreCompleto + "</td>";
+                tablaResultados += "</tr>";
+            }
+
+            tablaResultados += "</tbody></table>";
+
+            modalHTML += tablaResultados;
+            modalHTML += "</div>";
+            modalHTML += "<div class='modal-footer'>";
+            modalHTML += "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>";
+            modalHTML += "</div></div></div></div>";
+
+            // Agrega el modal al final del cuerpo del documento
+            $("body").append(modalHTML);
+
+            // Muestra el modal
+            $("#resultadosModal").modal("show");
+
+            // Agrega un evento clic a las filas de la tabla en el modal
+            $("#resultadosModal").on("click", "table tbody tr", function () {
+                var identPersona = $(this).find('td:eq(1)').text();
+                var documento = $(this).find('td:eq(3)').text();
+                var nombreCompleto = $(this).find('td:eq(4)').text();
+
+                $("#IdentPersona").val(identPersona);
+                $("#Documento").val(documento);
+                $("#Nombre").val(nombreCompleto);
+
+                cerrarModal();
+            });
+        }
+
+        function cerrarModal() {
+            // Oculta y elimina el modal del DOM
+            $("#resultadosModal").modal("hide");
+            $("#resultadosModal").on("hidden.bs.modal", function () {
+                $(this).remove();
+            });
+        }
+
+        $("#RegistrarPropietario").click(function () {
+            var identPrograma = $("#IdentPrograma").val();
+            var identPersona = $("#IdentPersona").val();
+            var tipoPropietario = $("#tipoPropietario").val();
+            var numeroPartida = $("#PartidaPropietario").val();
+
+            $.ajax({
+                url: '/Programa/RegistrarPropietario',
+                type: 'POST',
+                data: {
+                    identPrograma: identPrograma,
+                    identPersona: identPersona,
+                    tipoPropietario: tipoPropietario,
+                    numeroPartida: numeroPartida
+                },
+                success: function (propietarios) {
+                    console.log(propietarios);
+                    $("#registroExitosoModal").modal("show");
+                    $("#propietarios tbody").empty();
+                    console.log(propietarios.length);
+                    for (var i = 0; i < propietarios.length; i++) {
+                        var fila = "<tr>" +
+                                "<td>" + (i + 1) + "</td>" +
+                                "<td hidden>" + propietarios[i].identProgramaPropietario + "</td>" +
+                                "<td>" + propietarios[i].nombreCompleto + "</td>" +
+                                "<td>" + propietarios[i].tipoPropietario + "</td>" +
+                                "<td>" +
+                                "<a href='#' class='btn btn-outline-danger'><i class='bi bi-person'> </i></a>" +
+                                "</td>" +
+                                "</tr>";
+
+                        $("#propietarios tbody").append(fila);
+                    }
+                    // // Limpiar los campos después de registrar
+                    // $("#IdentPersona").val("");
+                    // $("#tipoPropietario").val("0");
+                    // $("#PartidaPropietario").val("");
+                    // $("#Nombre").val("");
+                    // $("#Documento").val();
+
+                    // // Limpiar la tabla antes de agregar las nuevas filas
+                    // $("#tablaPropietarios tbody").empty();
+                    
+                    // //Agregar las filas actualizadas a la tabla
+                    // for (var i = 0; i < propietarios.length; i++) {
+                    //     var fila = "<tr>" +
+                    //         "<td>" + (i + 1) + "</td>" +
+                    //         "<td hidden>" + propietarios[i].identProgramaPropietario + "</td>" +
+                    //         "<td>" + propietarios[i].nombreCompleto + "</td>" +
+                    //         "<td>" + propietarios[i].tipoPropietario + "</td>" +
+                    //         "<td>" +
+                    //         "<button class='btn btn-danger btn-sm' onclick='eliminarPropietario(" + propietarios[i].identProgramaPropietario + ")'>Eliminar</button>" +
+                    //         "</td>" +
+                    //         "</tr>";
+
+                    //     $("#tablaPropietarios tbody").append(fila);
+                    // }
+                },
+                error: function (error) {
+                    // Manejar los errores según sea necesario
+                    console.error(error);
+                }
+            });
+        });
+
+    });
+</script>

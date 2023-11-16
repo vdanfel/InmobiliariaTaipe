@@ -2,6 +2,7 @@
 using InmobiliariaWeb.Models;
 using InmobiliariaWeb.Models.Programa;
 using InmobiliariaWeb.Result;
+using InmobiliariaWeb.Servicios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InmobiliariaWeb.Controllers
@@ -9,10 +10,14 @@ namespace InmobiliariaWeb.Controllers
     public class ProgramaController:Controller
     {
         private readonly IProgramaService _programaService;
+        private readonly IPersonaService _personaService;
+        private readonly ITablasService _tablasService;
 
-        public ProgramaController(IProgramaService programaService)
+        public ProgramaController(IProgramaService programaService, IPersonaService personaService, ITablasService tablasService)
         {
             _programaService = programaService;
+            _personaService = personaService;
+            _tablasService = tablasService;
         }
         public async Task<IActionResult> Index(ProgramaViewModel programaViewModel) 
         {
@@ -65,6 +70,8 @@ namespace InmobiliariaWeb.Controllers
         public async Task<IActionResult> Actualizar(int IdentPrograma) 
         {
             var viewPrograma = await _programaService.BuscarProgramaIdentPrograma(IdentPrograma);
+            viewPrograma.TipoPropietario = await _tablasService.ListarTipoPropietario();
+            viewPrograma.viewPropietarios = await _programaService.ListarPropietario(IdentPrograma);
             return View(viewPrograma);
         }
         public LoginResult DatosUsuarioLogin()
@@ -75,6 +82,48 @@ namespace InmobiliariaWeb.Controllers
             loginResult.Ident005TipoUsuario = (int)HttpContext.Session.GetInt32("Ident005TipoUsuario");
             loginResult.NombreCompleto = HttpContext.Session.GetString("NombreCompleto");
             return loginResult;
+        }
+        [HttpGet]
+        public async Task<IActionResult> BuscarPersonas(string buscar)
+        {
+            try
+            {
+                var personas = await _personaService.PersonaBandeja(buscar);
+                return Json(personas);
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores según sea necesario
+                return Json(new { error = ex.Message });
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> RegistrarPropietario(int identPrograma, int identPersona, int tipoPropietario, string numeroPartida)
+        {
+            try
+            {
+                LoginResult loginResult = DatosUsuarioLogin();
+
+                // Llamar al método del servicio para registrar el propietario
+                int identProgramaPropietario = await _programaService.RegistrarPropietario(identPrograma, identPersona, tipoPropietario, numeroPartida, loginResult.IdentUsuario);
+                if (identProgramaPropietario > 0)
+                {
+                    // Obtener el propietario recién registrado
+                    var propietario = await _programaService.ListarPropietario(identPrograma);
+
+                    // Devolver el propietario como resultado
+                    return Json(propietario);
+                }
+                else
+                {
+                    return Json(new { error = "No se pudo cargar información del proveedor" });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Manejar errores según sea necesario
+                return Json(new { error = ex.Message });
+            }
         }
     }
 }

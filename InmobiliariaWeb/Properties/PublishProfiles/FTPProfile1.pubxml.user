@@ -7,7 +7,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAM/zNiAbXmkmQxjpBl26isgAAAAACAAAAAAADZgAAwAAAABAAAADHOS/1sp0Oxc9iBaxjdBy0AAAAAASAAACgAAAAEAAAACU8x6hgZRNeQ9S7JQlvGmEgAAAAy0MfDPND9wnpTGSG9ob5sIfcNjaxtnf1hnU/SMrT6y4UAAAAdO/R3fqiDqYl+4FhgNfaxJob51k=</EncryptedPassword>
     <_PublishTargetUrl>ftp://155.254.244.37/www.inmobiliaria.somee.com/</_PublishTargetUrl>
-    <History>True|2023-11-14T13:26:11.0437189Z;</History>
+    <History>True|2023-11-15T19:30:23.9272011Z;True|2023-11-14T17:54:08.3218889-05:00;True|2023-11-14T10:39:12.0438448-05:00;False|2023-11-14T10:35:13.3617723-05:00;False|2023-11-14T10:26:36.9159861-05:00;True|2023-11-14T08:26:11.0437189-05:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -24,16 +24,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>09/19/2022 15:31:34</publishTime>
     </File>
     <File Include="InmobiliariaWeb.deps.json">
-      <publishTime>11/14/2023 08:21:53</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="InmobiliariaWeb.dll">
-      <publishTime>11/14/2023 08:21:53</publishTime>
+      <publishTime>11/15/2023 14:26:32</publishTime>
     </File>
     <File Include="InmobiliariaWeb.exe">
-      <publishTime>11/14/2023 08:21:53</publishTime>
+      <publishTime>11/15/2023 14:26:32</publishTime>
     </File>
     <File Include="InmobiliariaWeb.pdb">
-      <publishTime>11/14/2023 08:21:53</publishTime>
+      <publishTime>11/15/2023 14:26:32</publishTime>
     </File>
     <File Include="InmobiliariaWeb.runtimeconfig.json">
       <publishTime>11/14/2023 08:21:54</publishTime>
@@ -45,10 +45,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/28/2023 00:28:24</publishTime>
     </File>
     <File Include="Microsoft.Identity.Client.dll">
-      <publishTime>10/03/2022 12:40:38</publishTime>
+      <publishTime>03/10/2022 12:40:38</publishTime>
     </File>
     <File Include="Microsoft.Identity.Client.Extensions.Msal.dll">
-      <publishTime>11/19/2021 17:02:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.Abstractions.dll">
       <publishTime>10/13/2022 14:42:54</publishTime>
@@ -63,10 +63,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/13/2022 14:24:18</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.Protocols.OpenIdConnect.dll">
-      <publishTime>10/13/2022 14:34:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.IdentityModel.Tokens.dll">
-      <publishTime>10/13/2022 14:29:00</publishTime>
+      <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="Microsoft.SqlServer.Server.dll">
       <publishTime>01/27/2022 12:19:08</publishTime>
@@ -81,16 +81,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 18:51:42</publishTime>
     </File>
     <File Include="runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll">
-      <publishTime>01/12/2023 17:19:36</publishTime>
+      <publishTime>12/01/2023 17:19:36</publishTime>
     </File>
     <File Include="runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll">
-      <publishTime>01/12/2023 17:19:36</publishTime>
+      <publishTime>12/01/2023 17:19:36</publishTime>
     </File>
     <File Include="runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll">
-      <publishTime>01/12/2023 17:19:36</publishTime>
+      <publishTime>12/01/2023 17:19:36</publishTime>
     </File>
     <File Include="runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll">
-      <publishTime>01/12/2023 17:19:36</publishTime>
+      <publishTime>12/01/2023 17:19:36</publishTime>
     </File>
     <File Include="runtimes/win/lib/net6.0/Microsoft.Data.SqlClient.dll">
       <publishTime>03/28/2023 00:27:58</publishTime>
@@ -120,7 +120,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/13/2022 14:18:58</publishTime>
     </File>
     <File Include="System.Memory.Data.dll">
-      <publishTime>04/08/2021 11:45:54</publishTime>
+      <publishTime>08/04/2021 11:45:54</publishTime>
     </File>
     <File Include="System.Runtime.Caching.dll">
       <publishTime>10/22/2021 18:52:02</publishTime>
@@ -135,13 +135,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/22/2021 18:49:44</publishTime>
     </File>
     <File Include="web.config">
-      <publishTime>11/14/2023 08:21:57</publishTime>
+      <publishTime>11/15/2023 14:26:36</publishTime>
     </File>
     <File Include="wwwroot/css/site.css">
       <publishTime>08/30/2023 19:37:15</publishTime>
     </File>
     <File Include="wwwroot/favicon.ico">
       <publishTime>08/30/2023 19:37:15</publishTime>
+    </File>
+    <File Include="wwwroot/icon/house-door.ico">
+      <publishTime>11/14/2023 09:38:19</publishTime>
     </File>
     <File Include="wwwroot/InmobiliariaWeb.styles.css">
       <publishTime>11/11/2023 17:01:14</publishTime>

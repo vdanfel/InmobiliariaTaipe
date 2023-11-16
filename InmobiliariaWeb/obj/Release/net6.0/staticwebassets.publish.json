@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "NWVz4xE8c3NTSHMkKHEOcSj+cVTcWCJKiA2qwJwxNuM=",
+  "Hash": "PoGzTVy2euQCBxWIwSpB5WoNTuAMOLvC3o2U6MXRk+Y=",
   "Source": "InmobiliariaWeb",
   "BasePath": "_content/InmobiliariaWeb",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Desarrollos\\InmobiliariaWeb\\InmobiliariaWeb\\wwwroot\\icon\\house-door.ico",
+      "SourceId": "InmobiliariaWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Desarrollos\\InmobiliariaWeb\\InmobiliariaWeb\\wwwroot\\",
+      "BasePath": "_content/InmobiliariaWeb",
+      "RelativePath": "icon/house-door.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\icon\\house-door.ico"
     },
     {
       "Identity": "D:\\Desarrollos\\InmobiliariaWeb\\InmobiliariaWeb\\wwwroot\\js\\site.js",

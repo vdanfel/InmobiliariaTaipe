@@ -14,6 +14,40 @@ namespace InmobiliariaWeb.Servicios
         {
             _connection = connection;
         }
+        public async Task<List<TipoPropietario>> ListarTipoPropietario()
+        {
+            int parametro = 11;
+            var tipoPropietarioList = new List<TipoPropietario>();
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_Parametros", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIdent_ParametroTipo", parametro);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (reader.Read())
+                    {
+                        var tipoPropietario = new TipoPropietario();
+                        tipoPropietario.Ident_011_TipoPropietario= Int32.Parse(reader["IDENT_PARAMETRO"].ToString());
+                        tipoPropietario.Descripcion = reader["DESCRIPCION"].ToString();
+                        tipoPropietario.Valor = reader["VALOR"].ToString();
+                        tipoPropietario.Abreviatura = reader["ABREVIATURA"].ToString();
+                        tipoPropietarioList.Add(tipoPropietario);
+                    }
+                    return tipoPropietarioList;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
         public async Task<List<TipoDocumento>> ListarTipoDocumento()
         {
             int parametro = 1;

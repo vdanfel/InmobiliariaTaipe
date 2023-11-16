@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using InmobiliariaWeb.Models.Tablas;
+using System.ComponentModel.DataAnnotations;
 
 namespace InmobiliariaWeb.Models.Programa
 {
@@ -21,5 +22,7 @@ namespace InmobiliariaWeb.Models.Programa
         public int CantidadManzanas { get; set; }
         public string Suministro { get; set; }
         public string Mensaje { get; set; }
+        public List<TipoPropietario>TipoPropietario { get; set; }
+        public List<ViewPropietario> viewPropietarios { get; set; }
     }
 }

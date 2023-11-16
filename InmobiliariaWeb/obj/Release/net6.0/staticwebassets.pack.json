@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Desarrollos\\InmobiliariaWeb\\InmobiliariaWeb\\wwwroot\\icon\\house-door.ico",
+      "PackagePath": "staticwebassets\\icon\\house-door.ico"
+    },
+    {
       "Id": "D:\\Desarrollos\\InmobiliariaWeb\\InmobiliariaWeb\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -10,5 +10,7 @@ namespace InmobiliariaWeb.Interfaces
         Task<string> RegistrarManzanas(ViewPrograma viewPrograma, LoginResult loginResult);
         Task<ViewPrograma> BuscarProgramaIdentPrograma(int identPrograma);
         Task<List<ProgramaList>> BandejaPrograma(string buscar);
+        Task<int> RegistrarPropietario(int identPrograma, int identPersona, int ident011TipoPropietario, string numeroPartida, int identUsuario);
+        Task<List<ViewPropietario>> ListarPropietario(int identPrograma);
     }
 }

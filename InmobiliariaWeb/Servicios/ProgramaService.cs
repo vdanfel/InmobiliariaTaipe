@@ -149,7 +149,77 @@ namespace InmobiliariaWeb.Servicios
             {
                 _connection.Close();
             }
-
+        }
+        public async Task<int> RegistrarPropietario(int identPrograma, int identPersona, int ident011TipoPropietario, string numeroPartida, int identUsuario)
+        {
+            var identProgramaPropietario = 0;
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ProgramaPropietarios_Insert", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIdent_programa", identPrograma);
+                    command.Parameters.AddWithValue("@ISIdent_Persona", identPersona);
+                    command.Parameters.AddWithValue("@ISIdent_011_TipoPropietario", ident011TipoPropietario);
+                    command.Parameters.AddWithValue("@ISNumeroPartida", numeroPartida);
+                    command.Parameters.AddWithValue("@ISUsuario", identUsuario);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (reader.Read())
+                    {
+                        identProgramaPropietario = Int32.Parse(reader["IDENT_PROGRAMAPROPIETARIO"].ToString());
+                    }
+                    return identProgramaPropietario;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+        public async Task<List<ViewPropietario>> ListarPropietario(int identPrograma)
+        { 
+            var propietarios = new List<ViewPropietario>();
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_ProgramaPropietarios_List", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIdent_programa", identPrograma);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (reader.Read())
+                    {
+                        var propietario = new ViewPropietario();
+                        propietario.Indice = Int32.Parse(reader["INDICE"].ToString());
+                        propietario.IdentProgramaPropietario = Int32.Parse(reader["IDENT_PROGRAMAPROPIETARIO"].ToString());
+                        propietario.IdentPrograma = Int32.Parse(reader["IDENT_PROGRAMA"].ToString());
+                        propietario.IdentPersona = Int32.Parse(reader["IDENT_PERSONA"].ToString());
+                        propietario.NombreCompleto = reader["NOMBRE_COMPLETO"].ToString();
+                        propietario.Ident011TipoPropietario = Int32.Parse(reader["IDENT_011_TIPOPROPIETARIO"].ToString());
+                        propietario.TipoPropietario = reader["TIPOPROPIETARIO"].ToString();
+                        propietario.NumeroPartida = reader["NUMEROPARTIDA"].ToString();
+                        propietario.Ident004Estado = Int32.Parse(reader["IDENT_004_ESTADO"].ToString());
+                        propietario.Estado = reader["ESTADO"].ToString();
+                        propietarios.Add(propietario);
+                    }
+                    return propietarios;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
         }
     }
 }
