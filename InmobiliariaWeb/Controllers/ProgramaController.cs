@@ -26,9 +26,10 @@ namespace InmobiliariaWeb.Controllers
             return View(programaViewModel);
         }
         [HttpGet]
-        public IActionResult Crear()
+        public async Task<IActionResult> Crear()
         {
             ProgramaCrearViewModel programaCrearViewModel = new ProgramaCrearViewModel();
+            programaCrearViewModel.Manzanas = await _tablasService.ListarManzanas();
             return View(programaCrearViewModel);
         }
         [HttpPost]
@@ -43,11 +44,12 @@ namespace InmobiliariaWeb.Controllers
             {
                 LoginResult loginResult = new LoginResult();
                 loginResult = DatosUsuarioLogin();
+                programaCrearViewModel.ViewPrograma.IdentPrograma = await _programaService.RegistrarPrograma(programaCrearViewModel.ViewPrograma, loginResult);
                 ViewPrograma viewprograma = new ViewPrograma();
-                viewprograma.IdentPrograma = await _programaService.RegistrarPrograma(programaCrearViewModel.ViewPrograma, loginResult);
+                viewprograma = programaCrearViewModel.ViewPrograma;
                 if (viewprograma.IdentPrograma > 0)
                 {
-                    var mensaje = await _programaService.RegistrarManzanas(programaCrearViewModel.ViewPrograma, loginResult);
+                    var mensaje = await _programaService.RegistrarManzanas(viewprograma, loginResult);
                     if (mensaje == "ok")
                     {
                         viewprograma.Mensaje = "Se registró con éxito";
@@ -56,7 +58,7 @@ namespace InmobiliariaWeb.Controllers
                     {
                         viewprograma.Mensaje = "Se registró el Programa pero no se registraron los lotes";
                     }
-                    return RedirectToAction("Actualizar", "Programa", new { IdentPrograma = viewprograma.IdentPrograma });
+                    return RedirectToAction("Actualizar", "Programa", new { IdentPrograma = viewprograma.IdentPrograma, Mensaje=viewprograma.Mensaje });
                 }
                 else
                 {
@@ -64,15 +66,34 @@ namespace InmobiliariaWeb.Controllers
                     return View(programaCrearViewModel.ViewPrograma);
                 }
             }
-            
-            
         }
-        public async Task<IActionResult> Actualizar(int IdentPrograma) 
+        [HttpGet]
+        public async Task<IActionResult> Actualizar(int IdentPrograma, string Mensaje) 
         {
             var viewPrograma = await _programaService.BuscarProgramaIdentPrograma(IdentPrograma);
+            if (Mensaje != null)
+            {
+                viewPrograma.Mensaje = Mensaje;
+            }
             viewPrograma.TipoPropietario = await _tablasService.ListarTipoPropietario();
             viewPrograma.viewPropietarios = await _programaService.ListarPropietario(IdentPrograma);
+            viewPrograma.viewManzana = await _programaService.ListarManzanasPrograma(IdentPrograma);
+            viewPrograma.manzanas = await _tablasService.ListarManzanas();
             return View(viewPrograma);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ActualizarPrograma(ViewPrograma viewPrograma)
+        {
+            LoginResult loginResult = new LoginResult();
+            loginResult = DatosUsuarioLogin();
+            if (viewPrograma.Confirmacion == "OK")
+            {
+                var mensaje = await _programaService.AnularManzanasList(viewPrograma.IdentPrograma,loginResult.IdentUsuario);
+                mensaje = await _programaService.RegistrarManzanas(viewPrograma, loginResult);
+            }
+
+            viewPrograma.Mensaje = await _programaService.ActualizarPrograma(viewPrograma, loginResult);
+            return RedirectToAction("Actualizar", "Programa", new { IdentPrograma = viewPrograma.IdentPrograma, Mensaje = viewPrograma.Mensaje });
         }
         public LoginResult DatosUsuarioLogin()
         {
@@ -124,6 +145,62 @@ namespace InmobiliariaWeb.Controllers
                 // Manejar errores según sea necesario
                 return Json(new { error = ex.Message });
             }
+        }
+        [HttpPost]
+        public async Task<IActionResult> ValidarManzanaInicial(int identPrograma, int manzanaInicial, int cantidadManzanas)
+        {
+            var mensaje = await _programaService.ValidarManzanaInicial(identPrograma, manzanaInicial, cantidadManzanas);
+            return Json(new { Mensaje = mensaje });
+        }
+        public async Task<IActionResult> AnularPrograma(int identPrograma)
+        {
+            var mensaje = await _programaService.AnularPrograma(identPrograma);
+            if (mensaje == "OK")
+            {
+                mensaje = "Se anuló con éxito el Programa";
+            }
+            else
+            {
+                mensaje = "No se pudo anular el Programa";
+            }
+            return RedirectToAction("Actualizar", "Programa", new { IdentPrograma = identPrograma, Mensaje = mensaje });
+        }
+        [HttpPost]
+        public async Task<IActionResult> ActualizarCantidadLotes(int identManzana, int nuevaCantidadLotes)
+        {
+            LoginResult loginResult = DatosUsuarioLogin();
+
+            // Llamar al servicio para actualizar la cantidad de lotes
+            var mensaje = await _programaService.ActualizarCantidadLotes(identManzana, nuevaCantidadLotes);
+
+            return Json(new { mensaje });
+        }
+        public async Task<IActionResult> ListarManzanaJson(int identPrograma)
+        {
+            // Llamar al servicio para obtener la lista actualizada de manzanas
+            var viewManzanas = await _programaService.ListarManzanasPrograma(identPrograma);
+
+            // Devolver la vista parcial con los datos actualizados
+            return Json(viewManzanas);
+        }
+        public async Task<IActionResult> EliminarPropietario(int identPrograma, int IdentPropietario)
+        {
+            LoginResult loginResult = DatosUsuarioLogin();
+            
+            var mensaje = await _programaService.AnularPropietario(IdentPropietario);
+            if (mensaje == "OK")
+            {
+                var propietario = await _programaService.ListarPropietario(identPrograma);
+                return Json(propietario);
+            }
+            else
+            {
+                mensaje = "no se pudo anular propietario";
+                return Json(new { mensaje });
+            }
+            // Obtener el propietario recién registrado
+            
+            
         }
     }
 }

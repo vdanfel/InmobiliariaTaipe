@@ -70,15 +70,15 @@
                     @foreach (var propietarios in Model.viewPropietarios)
                     {
                         <tr>
-                            <th class="text-center">@propietarios.Indice</th>
-                            <th hidden>@propietarios.IdentProgramaPropietario</th>
-                            <th>@propietarios.NombreCompleto</th>
-                            <th class="text-center">@propietarios.TipoPropietario</th>
-                            <th class="text-center">
-                                <a href="#" class="btn btn-outline-danger">
+                            <td class="text-center">@propietarios.Indice</td>
+                            <td hidden>@propietarios.IdentProgramaPropietario</td>
+                            <td>@propietarios.NombreCompleto</td>
+                            <td class="text-center">@propietarios.TipoPropietario</td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-outline-danger eliminarPropietario" data-ident-propietario="@propietarios.IdentProgramaPropietario">
                                     <i class="bi bi-person"></i>
                                 </a>
-                            </th>
+                            </td>
                         </tr>
                     }
                     </tbody>
@@ -106,6 +106,9 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        $("#propietarios").on("click", ".eliminarPropietario", eliminarPropietario);
+
         $("#BuscarPersona").click(function () {
             var valorBusqueda = $("#inputBusqueda").val();
 
@@ -129,6 +132,10 @@
                 }
             });
         });
+
+        // Verificar la existencia de propietarios al cargar la página
+        verificarEstadoManzanas();
+
 
         function mostrarResultados(resultados) {
             // Crea el modal
@@ -217,36 +224,15 @@
                                 "<td>" + propietarios[i].nombreCompleto + "</td>" +
                                 "<td>" + propietarios[i].tipoPropietario + "</td>" +
                                 "<td>" +
-                                "<a href='#' class='btn btn-outline-danger'><i class='bi bi-person'> </i></a>" +
+                                "<a href='#' class='btn btn-outline-danger eliminarPropietario' data-ident-propietario='"+propietarios[i].identProgramaPropietario+"'><i class='bi bi-person'> </i></a>" +
                                 "</td>" +
                                 "</tr>";
 
                         $("#propietarios tbody").append(fila);
+                        // Verificar la existencia de propietarios al cargar la página
+                        verificarEstadoManzanas();
+
                     }
-                    // // Limpiar los campos después de registrar
-                    // $("#IdentPersona").val("");
-                    // $("#tipoPropietario").val("0");
-                    // $("#PartidaPropietario").val("");
-                    // $("#Nombre").val("");
-                    // $("#Documento").val();
-
-                    // // Limpiar la tabla antes de agregar las nuevas filas
-                    // $("#tablaPropietarios tbody").empty();
-                    
-                    // //Agregar las filas actualizadas a la tabla
-                    // for (var i = 0; i < propietarios.length; i++) {
-                    //     var fila = "<tr>" +
-                    //         "<td>" + (i + 1) + "</td>" +
-                    //         "<td hidden>" + propietarios[i].identProgramaPropietario + "</td>" +
-                    //         "<td>" + propietarios[i].nombreCompleto + "</td>" +
-                    //         "<td>" + propietarios[i].tipoPropietario + "</td>" +
-                    //         "<td>" +
-                    //         "<button class='btn btn-danger btn-sm' onclick='eliminarPropietario(" + propietarios[i].identProgramaPropietario + ")'>Eliminar</button>" +
-                    //         "</td>" +
-                    //         "</tr>";
-
-                    //     $("#tablaPropietarios tbody").append(fila);
-                    // }
                 },
                 error: function (error) {
                     // Manejar los errores según sea necesario
@@ -254,6 +240,53 @@
                 }
             });
         });
+        function verificarEstadoManzanas() {
+            // Obtén la cantidad de filas en la tabla de propietarios
+            var cantidadPropietarios = $("#propietarios tbody tr").length;
 
+            // Activa o desactiva la pestaña de Manzanas según la cantidad de propietarios
+            if (cantidadPropietarios > 0) {
+                $("#ManzanaTab").removeClass("disabled");
+            } else {
+                $("#ManzanaTab").addClass("disabled");
+            }
+        }
+        function eliminarPropietario() {
+            var identPrograma = $("#IdentPrograma").val();
+            var identPropietario = $(this).data("ident-propietario");
+            $.ajax({
+                url: '/Programa/EliminarPropietario',
+                type: 'POST',
+                data: {
+                    identPrograma: identPrograma, 
+                    IdentPropietario: identPropietario
+                },
+                success: function (propietarios) {
+                    console.log(propietarios);
+                    //$("#registroExitosoModal").modal("show");
+                    $("#propietarios tbody").empty();
+                    console.log(propietarios.length);
+                    for (var i = 0; i < propietarios.length; i++) {
+                        var fila = "<tr>" +
+                            "<td>" + (i + 1) + "</td>" +
+                            "<td hidden>" + propietarios[i].identProgramaPropietario + "</td>" +
+                            "<td>" + propietarios[i].nombreCompleto + "</td>" +
+                            "<td>" + propietarios[i].tipoPropietario + "</td>" +
+                            "<td>" +
+                            "<a href='#' class='btn btn-outline-danger eliminarPropietario' data-ident-propietario='" + propietarios[i].identProgramaPropietario + "'><i class='bi bi-person'> </i></a>" +
+                            "</td>" +
+                            "</tr>";
+
+                        $("#propietarios tbody").append(fila);
+                        // Verificar la existencia de propietarios al cargar la página
+                        verificarEstadoManzanas();
+                    }
+                },
+                error: function (error) {
+                    // Manejar los errores según sea necesario
+                    console.error(error);
+                }
+            });
+        }
     });
 </script>

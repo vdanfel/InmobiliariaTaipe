@@ -69,6 +69,17 @@
                 <div class="col-lg-2 col-sm-12">
                     <input type="text" class="form-control" asp-for="@Model.Suministro" />
                 </div>
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">Manzana Inicial</label>
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <select class="form-select" asp-for="@Model.CantidadManzanas">
+                        @foreach(var manzanas in Model.manzanas)
+                        {
+                            <option value="@manzanas.Valor">@manzanas.Descripcion</option>
+                        }
+                    </select>
+                </div>
             </div>
             <div class="row">
                 <button class="btn btn-lg btn-outline-success" type="submit">REGISTRAR</button>

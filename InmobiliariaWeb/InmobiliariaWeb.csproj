@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="AspViews\Cliente\" />
     <Folder Include="wwwroot\icon\" />
-    <Folder Include="Result\Programa\" />
   </ItemGroup>
 
 </Project>

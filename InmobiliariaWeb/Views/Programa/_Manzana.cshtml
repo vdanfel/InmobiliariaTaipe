@@ -1,13 +1,148 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+
 }
+<input value="@Model.IdentPrograma" id="IdentPrograma" hidden/>
 <div class="card mt-3">
     <div class="card-header">
         Manzanas
     </div>
     <div class="card-body">
-
+        <table class="table table-hover" id="ListaManzanas">
+            <thead class="table-dark">
+                <tr>
+                    <th>N°</th>
+                    <th hidden>Ident_Manzana</th>
+                    <th hidden>Correlativo</th>
+                    <th>LETRA</th>
+                    <th>#LOTES</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="cuerpoTablaManzanas">
+                @foreach (var manzanas in Model.viewManzana)
+                {
+                    var isCantidadLotesZero = manzanas.CantidadLotes == 0;
+                    <tr>
+                        <td>@manzanas.Indice</td>
+                        <th hidden id="IdentManzana">@manzanas.Ident_Manzana</th>
+                        <th hidden>@manzanas.Correlativo</th>
+                        <th>@manzanas.Letra</th>
+                        <th>@manzanas.CantidadLotes</th>
+                        <th class="g-1">
+                            <a class="btn btn-outline-primary actualizarCantidadLotes" data-bs-target=".modalActualizarCantidadLotes">
+                                <i class="bi bi-house-gear"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-secondary @(isCantidadLotesZero ? "disabled" : "") visualizarLotes" data-bs-target=".modalVisualizarLotes">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </th>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+
+<!-- Modal para actualizar cantidad de lotes -->
+<div class="modal fade modalActualizarCantidadLotes" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Actualizar Cantidad de Lotes</h4>
+            </div>
+            <div class="modal-body">
+                <p>Ingrese la nueva cantidad de lotes:</p>
+                <input type="number" id="nuevaCantidadLotes" class="form-control m-auto" style="width:70px;" />
+                <span id="mensajeError" class="text-danger"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success aceptarCantidadLotes" >Aceptar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Otros modales aquí si es necesario -->
+
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#ListaManzanas").on("click", ".actualizarCantidadLotes", function () {
+            var cantidadLotes = $(this).closest("tr").find("[id^='cantidadLotes-']").text().trim();
+            var identManzana = $(this).closest("tr").find("[id^='IdentManzana']").text().trim();
+            $("#nuevaCantidadLotes").val(cantidadLotes);
+            $("#IdentManzana").val(identManzana);
+            $(".modalActualizarCantidadLotes").modal('show');
+        });
+
+        
+        $(".aceptarCantidadLotes").click(function () {
+            var nuevaCantidadLotes = $("#nuevaCantidadLotes").val();
+            var identManzana = $("#IdentManzana").val();
+            var identPrograma = $("#IdentPrograma").val();
+            if (nuevaCantidadLotes <= 0 || nuevaCantidadLotes === "") {
+                $("#mensajeError").text("La cantidad de lotes debe ser mayor a 0.");
+            } else {
+                $("#mensajeError").text("");
+
+                // Llamada AJAX para actualizar la cantidad de lotes en el controlador
+                $.ajax({
+                    type: "POST",
+                    url: "/Programa/ActualizarCantidadLotes",
+                    data: { identManzana: identManzana, nuevaCantidadLotes: nuevaCantidadLotes },
+                    success: function (data) {
+                        // Verificar si la actualización fue exitosa
+                        if (data.mensaje === "OK") {
+                            // Limpiamos datos de la tabla
+                            $("#cuerpoTablaManzanas").empty();
+
+                            // Cerrar el modal solo si la validación es exitosa
+                            $(".modalActualizarCantidadLotes").modal('hide'); // Cerrar el modal solo si la validación es exitosa
+
+                            // Recargar los datos desde el controlador
+                            $.ajax({
+                                type: "GET",
+                                url: "/Programa/ListarManzanaJson",
+                                data: { identPrograma: identPrograma },
+                                success: function (data) {
+                                    // Insertar los nuevos datos en el cuerpo de la tabla
+                                    $.each(data, function (index, item) {
+                                        var fila = "<tr>" +
+                                            "<td>" + item.indice + "</td>" +
+                                            "<th hidden id='IdentManzana'>" + item.ident_Manzana + "</th>" +
+                                            "<th hidden>" + item.correlativo + "</th>" +
+                                            "<th>" + item.letra + "</th>" +
+                                            "<th>" + item.cantidadLotes + "</th>" +
+                                            "<th class='g-1'>" +
+                                            "<a class='btn btn-outline-primary actualizarCantidadLotes' data-bs-target='.modalActualizarCantidadLotes'>" +
+                                            "<i class='bi bi-house-gear'></i>" +
+                                            "</a>" +
+                                            "<a href='#' class='btn btn-outline-secondary " + (item.cantidadLotes === 0 ? "disabled" : "") + " visualizarLotes' data-bs-target='.modalVisualizarLotes'>" +
+                                            "<i class='bi bi-eye'></i>" +
+                                            "</a>" +
+                                            "</th>" +
+                                            "</tr>";
+
+                                        $("#cuerpoTablaManzanas").append(fila);
+                                    });
+                                },
+                                error: function () {
+                                    // Manejar el caso de error de la llamada AJAX
+                                    $("#mensajeError").text("Error de conexión al intentar actualizar la tabla.");
+                                }
+                            });
+                        } else {
+                            // Si hay un problema con la actualización, mostrar un mensaje de error
+                            $("#mensajeError").text("Error al actualizar la cantidad de lotes.");
+                        }
+                    },
+                    error: function () {
+                        // Manejar el caso de error de la llamada AJAX
+                        $("#mensajeError").text("Error de conexión al intentar actualizar la cantidad de lotes.");
+                    }
+                });
+            }
+        });
+    });
+</script>

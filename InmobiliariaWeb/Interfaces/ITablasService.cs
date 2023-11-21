@@ -10,5 +10,6 @@ namespace InmobiliariaWeb.Interfaces
         Task<List<Provincia>> ListarProvincia(string codigoDepartamento);
         Task<List<Distrito>> ListarDistrito(string codigoDepartamento, string codigoProvincia);
         Task<List<TipoPropietario>> ListarTipoPropietario();
+        Task<List<Manzanas>> ListarManzanas();
     }
 }

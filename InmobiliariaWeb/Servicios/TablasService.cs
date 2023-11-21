@@ -115,6 +115,39 @@ namespace InmobiliariaWeb.Servicios
                 _connection.Close();
             }
         }
+        public async Task<List<Manzanas>> ListarManzanas()
+        {
+            int parametro = 7;
+            var manzanaList = new List<Manzanas>();
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_Parametros", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("ISIdent_ParametroTipo", parametro);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (reader.Read())
+                    {
+                        var manzana = new Manzanas();
+                        manzana.ident_Parametro = Int32.Parse(reader["IDENT_PARAMETRO"].ToString());
+                        manzana.Descripcion = reader["DESCRIPCION"].ToString();
+                        manzana.Valor = Int32.Parse(reader["VALOR"].ToString());
+                        manzanaList.Add(manzana);
+                    }
+                    return manzanaList;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
         public async Task<List<Departamento>> ListarDepartamento()
         { 
             var departamentosList = new List<Departamento>();

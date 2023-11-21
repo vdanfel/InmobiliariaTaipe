@@ -1,4 +1,4 @@
-﻿using InmobiliariaWeb.Result.Persona;
+﻿using InmobiliariaWeb.Result.Programa;
 
 namespace InmobiliariaWeb.Models
 {

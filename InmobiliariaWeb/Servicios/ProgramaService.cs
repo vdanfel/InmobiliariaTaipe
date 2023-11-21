@@ -1,7 +1,7 @@
 ﻿using InmobiliariaWeb.Interfaces;
 using InmobiliariaWeb.Models.Programa;
 using InmobiliariaWeb.Result;
-using InmobiliariaWeb.Result.Persona;
+using InmobiliariaWeb.Result.Programa;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 
@@ -59,7 +59,8 @@ namespace InmobiliariaWeb.Servicios
                     command.CommandType = System.Data.CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@ISIdent_Programa", viewPrograma.IdentPrograma);
                     command.Parameters.AddWithValue("@ISCantidad", viewPrograma.CantidadManzanas);
-                    command.Parameters.AddWithValue("@ISUSUARIO", loginResult.IdentUsuario);
+                    command.Parameters.AddWithValue("@ISUsuario", loginResult.IdentUsuario);
+                    command.Parameters.AddWithValue("@ISManzanaInicial", viewPrograma.ManzanaInicial);
                     await _connection.OpenAsync();
                     // Ejecuta el procedimiento almacenado y obtén el resultado
                     SqlDataReader reader = await command.ExecuteReaderAsync();
@@ -102,6 +103,7 @@ namespace InmobiliariaWeb.Servicios
                         viewPrograma.AreaLotizada = decimal.Parse(reader["AREA_LOTIZADA"].ToString());
                         viewPrograma.CantidadManzanas = Int32.Parse(reader["CANTIDAD_MANZANAS"].ToString());
                         viewPrograma.Suministro = reader["SUMINISTRO"].ToString();
+                        viewPrograma.ManzanaInicial = Int32.Parse(reader["MANZANA_INICIAL"].ToString());
                     }
                     return viewPrograma;
                 }
@@ -210,6 +212,206 @@ namespace InmobiliariaWeb.Servicios
                         propietarios.Add(propietario);
                     }
                     return propietarios;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+        public async Task<List<ViewManzana>> ListarManzanasPrograma(int ident_Programa)
+        { 
+            var viewManzanaList = new List<ViewManzana>();
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_Manzana_Listar", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIdent_Programa", ident_Programa);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (reader.Read())
+                    {
+                        var viewManzana = new ViewManzana();
+                        viewManzana.Indice = Int32.Parse(reader["INDICE"].ToString());
+                        viewManzana.Ident_Manzana = Int32.Parse(reader["IDENT_MANZANA"].ToString());
+                        viewManzana.Correlativo = Int32.Parse(reader["CORRELATIVO"].ToString());
+                        viewManzana.Letra = reader["LETRA"].ToString();
+                        viewManzana.CantidadLotes = Int32.Parse(reader["CANTIDADLOTES"].ToString());
+                        viewManzanaList.Add(viewManzana);
+                    }
+                    return viewManzanaList;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+        public async Task<string> ValidarManzanaInicial(int Ident_Programa, int ManzanaInicial, int CantidadManzanas)
+        {
+            var mensaje = "";
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_MANZANAS_MANZANAINICIAL", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIDENT_PROGRAMA", Ident_Programa);
+                    command.Parameters.AddWithValue("@ISMANZANA_INICIAL", ManzanaInicial);
+                    command.Parameters.AddWithValue("@ISCANTIDAD_MANZANAS", CantidadManzanas);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (reader.Read()) 
+                    {
+                        mensaje = reader["MENSAJE"].ToString();
+                    }
+                    return mensaje;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+        public async Task<string> AnularPrograma(int Ident_Programa)
+        {
+            var mensaje = "";
+            try 
+            {
+                using (SqlCommand command = new SqlCommand("SP_PROGRAMA_ANULAR", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIDENT_PROGRAMA", Ident_Programa);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    mensaje = "OK";
+                    return mensaje;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+        public async Task<string> ActualizarPrograma(ViewPrograma viewPrograma, LoginResult loginResult)
+        {
+            var mensaje = "";
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_Programa_Actualizar", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIdent_Programa", viewPrograma.IdentPrograma);
+                    command.Parameters.AddWithValue("@ISNombre", viewPrograma.NombrePrograma);
+                    command.Parameters.AddWithValue("@ISNumero_Partida", viewPrograma.NumeroPartida);
+                    command.Parameters.AddWithValue("@ISDireccion", viewPrograma.Direccion);
+                    command.Parameters.AddWithValue("@ISReferencia", viewPrograma.Referencia ?? "");
+                    command.Parameters.AddWithValue("@ISAreaTotal", viewPrograma.AreaTotal);
+                    command.Parameters.AddWithValue("@ISAreaLotizada", viewPrograma.AreaLotizada);
+                    command.Parameters.AddWithValue("@ISCantidadManzanas", viewPrograma.CantidadManzanas);
+                    command.Parameters.AddWithValue("@ISSuministro", viewPrograma.Suministro ?? "");
+                    command.Parameters.AddWithValue("@ISUsuarioModificacion", loginResult.IdentUsuario);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    mensaje = "Se actualizó con Éxito";
+                    return mensaje;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+        public async Task<string> AnularManzanasList(int IdentPrograma,int IdentUsuario)
+        {
+            var mensaje = "";
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_MANZANAS_ANULARLIST", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIDENT_PROGRAMA", IdentPrograma);
+                    command.Parameters.AddWithValue("@ISUSUARIO", IdentUsuario);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    mensaje = "OK";
+                    return mensaje;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+        public async Task<string> ActualizarCantidadLotes(int IdentManzana, int CantidadLotes)
+        {
+            var mensaje = "";
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_MANZANA_CANTIDADLOTES", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIDENT_MANZANA", IdentManzana);
+                    command.Parameters.AddWithValue("@ISCANTIDAD_LOTES", CantidadLotes);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    mensaje = "OK";
+                    return mensaje;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _connection.Close();
+            }
+        }
+        public async Task<string> AnularPropietario(int IdentPropietario)
+        {
+            var mensaje = "";
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_PROPIETARIOS_ANULAR", _connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@ISIDENT_PROGRAMAPROPIETARIO", IdentPropietario);
+                    await _connection.OpenAsync();
+                    // Ejecuta el procedimiento almacenado y obtén el resultado
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    mensaje = "OK";
+                    return mensaje;
                 }
             }
             catch (Exception ex)

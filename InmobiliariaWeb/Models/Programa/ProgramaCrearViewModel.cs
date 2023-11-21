@@ -1,4 +1,6 @@
-﻿namespace InmobiliariaWeb.Models.Programa
+﻿using InmobiliariaWeb.Models.Tablas;
+
+namespace InmobiliariaWeb.Models.Programa
 {
     public class ProgramaCrearViewModel
     {
@@ -13,5 +15,7 @@
         public string Suministro { get; set; }
         public string Mensaje { get; set; }
         public ViewPrograma ViewPrograma { get; set; }
+        public List<Manzanas> Manzanas { get; set; }
+        public int ManzanaInicial { get; set; }
     }
 }

@@ -24,5 +24,9 @@ namespace InmobiliariaWeb.Models.Programa
         public string Mensaje { get; set; }
         public List<TipoPropietario>TipoPropietario { get; set; }
         public List<ViewPropietario> viewPropietarios { get; set; }
+        public List<ViewManzana> viewManzana { get; set;}
+        public List<Manzanas> manzanas { get; set;}
+        public int ManzanaInicial { get; set; }
+        public string Confirmacion { get; set; }
     }
 }

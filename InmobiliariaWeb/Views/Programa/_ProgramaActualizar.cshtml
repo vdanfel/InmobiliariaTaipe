@@ -1,7 +1,8 @@
 ﻿@model InmobiliariaWeb.Models.Programa.ViewPrograma
 @{
 }
-<form asp-action="Actualizar" method="post">
+<form asp-action="ActualizarPrograma" method="post" id="formActualizar">
+    <input hidden asp-for="@Model.IdentPrograma"/>
     <div class="card mt-3">
         <div class="card-header fw-bold">
             Datos del Programa
@@ -77,11 +78,103 @@
                 <div class="col-lg-2 col-sm-12">
                     <input type="text" class="form-control" asp-for="@Model.Suministro" />
                 </div>
+                <div class="col-lg-2 col-sm-12">
+                    <label class="col-form-label">Manzana Inicial</label>
+                </div>
+                <div class="col-lg-2 col-sm-12">
+                    <select class="form-select" asp-for="@Model.ManzanaInicial">
+                        @foreach (var manzanas in Model.manzanas)
+                        {
+                            <option value="@manzanas.Valor">@manzanas.Descripcion</option>
+                        }
+                    </select>
+                </div>
             </div>
             <div class="row">
                 <button class="btn btn-lg btn-outline-info" type="submit">ACTUALIZAR</button>
-                <a class="btn btn-lg btn-outline-danger">ELIMINAR</a>
+                <a class="btn btn-lg btn-outline-danger" asp-action="AnularPrograma" asp-controller="Programa" asp-route-IdentPrograma="@Model.IdentPrograma">ELIMINAR</a>
             </div>
         </div>
     </div>
+    <input id="confirmacion" type="text" asp-for="@Model.Confirmacion" hidden/>
 </form>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+@if (!string.IsNullOrEmpty(Model.Mensaje))
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    @Model.Mensaje
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Agrega este modal al final de tu vista para mostrar el mensaje de confirmación -->
+<div class="modal fade" id="confirmacionModal" tabindex="-1" role="dialog" aria-labelledby="confirmacionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmacionModalLabel">Confirmación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Las Manzanas registradas se anularán y tendrá que registrar sus datos nuevamente, ¿desea continuar?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Continuar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var mensajeError = '@Model.Mensaje';
+    if (mensajeError && mensajeError.trim() !== '') {
+        $(window).load(function () {
+            $('#myModal').modal('show');
+        });
+    };
+    // Manejar el evento del formulario
+    $("#formActualizar").submit(function (e) {
+        e.preventDefault(); // Evitar el envío del formulario por defecto
+
+        // Obtener los valores necesarios para la validación
+        var identPrograma = $("#IdentPrograma").val();
+        var manzanaInicial = $("#ManzanaInicial").val();
+        var cantidadManzanas = $("#CantidadManzanas").val();
+
+        // Realizar la llamada AJAX para la validación
+        $.ajax({
+            url: '@Url.Action("ValidarManzanaInicial", "Programa")',
+            type: 'POST',
+            data: { identPrograma: identPrograma, manzanaInicial: manzanaInicial , cantidadManzanas:cantidadManzanas},
+            success: function (data) {
+                if (data.mensaje === "OK") {
+                    // Mostrar el mensaje de confirmación en un modal
+                    $('#confirmacionModal').modal('show');
+                } else {
+                    // Si no hay problemas de validación, enviar el formulario
+                    $("#formActualizar").unbind('submit').submit();
+                }
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    });
+    function submitForm() {
+        // Si el usuario confirma, enviar el formulario
+        $("#confirmacion").val("OK");
+        $("#formActualizar").unbind('submit').submit();
+    }
+</script>
