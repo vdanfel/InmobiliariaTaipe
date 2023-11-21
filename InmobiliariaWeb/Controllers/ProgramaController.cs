@@ -86,6 +86,12 @@ namespace InmobiliariaWeb.Controllers
         {
             LoginResult loginResult = new LoginResult();
             loginResult = DatosUsuarioLogin();
+            if (viewPrograma.AreaTotal < viewPrograma.AreaLotizada)
+            {
+                viewPrograma.Mensaje = "El Área Total no puede ser menor que el Área Lotizada";
+                return View(viewPrograma);
+            }
+
             if (viewPrograma.Confirmacion == "OK")
             {
                 var mensaje = await _programaService.AnularManzanasList(viewPrograma.IdentPrograma,loginResult.IdentUsuario);

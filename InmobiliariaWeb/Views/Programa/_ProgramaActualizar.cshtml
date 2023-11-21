@@ -146,7 +146,12 @@
     };
     // Manejar el evento del formulario
     $("#formActualizar").submit(function (e) {
-        e.preventDefault(); // Evitar el envío del formulario por defecto
+        // Validar campos obligatorios
+        if (!validarCamposObligatorios()) {
+            // Mostrar un mensaje de error o tomar otra acción necesaria
+            e.preventDefault(); // Evitar el envío del formulario
+            return;
+        }
 
         // Obtener los valores necesarios para la validación
         var identPrograma = $("#IdentPrograma").val();
@@ -157,24 +162,45 @@
         $.ajax({
             url: '@Url.Action("ValidarManzanaInicial", "Programa")',
             type: 'POST',
-            data: { identPrograma: identPrograma, manzanaInicial: manzanaInicial , cantidadManzanas:cantidadManzanas},
+            data: { identPrograma: identPrograma, manzanaInicial: manzanaInicial, cantidadManzanas: cantidadManzanas },
             success: function (data) {
                 if (data.mensaje === "OK") {
                     // Mostrar el mensaje de confirmación en un modal
                     $('#confirmacionModal').modal('show');
                 } else {
-                    // Si no hay problemas de validación, enviar el formulario
-                    $("#formActualizar").unbind('submit').submit();
+                    // Si no hay problemas de validación, establecer la bandera para permitir el envío del formulario
+                    $("#confirmacion").val("OK");
+                    formularioEnviado = true;
+                    $("#formActualizar").submit(); // Aquí no es necesario desvincular el evento submit
                 }
             },
             error: function (error) {
                 console.error(error);
             }
         });
+
+        e.preventDefault(); // Evitar el envío del formulario por defecto
     });
     function submitForm() {
         // Si el usuario confirma, enviar el formulario
         $("#confirmacion").val("OK");
-        $("#formActualizar").unbind('submit').submit();
+        formularioEnviado = true;
+        $("#formActualizar").submit(); // Aquí no es necesario desvincular el evento submit
+    }
+    // Función para validar campos obligatorios
+    function validarCamposObligatorios() {
+        var isValid = true;
+        $(".form-control[required]").each(function () {
+            var value = $(this).val();
+            if (!value || value.trim() === '') {
+                isValid = false;
+                // Puedes mostrar un mensaje de error, resaltar el campo, etc.
+                $(this).addClass('is-invalid');
+            } else {
+                // Remover la clase de error si el campo tiene valor
+                $(this).removeClass('is-invalid');
+            }
+        });
+        return isValid;
     }
 </script>

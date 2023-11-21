@@ -9,105 +9,105 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = InmobiliariaWeb
 build_property.RootNamespace = InmobiliariaWeb
-build_property.ProjectDir = E:\InmobiliariaWeb\InmobiliariaWeb\
+build_property.ProjectDir = D:\Desarrollos\InmobiliariaWeb\InmobiliariaWeb\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = E:\InmobiliariaWeb\InmobiliariaWeb
+build_property.MSBuildProjectDirectory = D:\Desarrollos\InmobiliariaWeb\InmobiliariaWeb
 build_property._RazorSourceGeneratorDebug = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Cliente/Index.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Cliente/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Cliente/_ContenedorCliente.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Cliente/_ContenedorCliente.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZVxfQ29udGVuZWRvckNsaWVudGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/DashBoard/Index.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/DashBoard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaEJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Home/Index.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Home/Privacy.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Login/Index.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Persona/Actualizar.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Persona/Actualizar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYVxBY3R1YWxpemFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Persona/Crear.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Persona/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYVxDcmVhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Persona/Index.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Persona/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVyc29uYVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/Actualizar.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/Actualizar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFcQWN0dWFsaXphci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/Crear.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFcQ3JlYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/Index.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_Lote.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_Lote.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFcX0xvdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_Manzana.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_Manzana.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFcX01hbnphbmEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_Programa.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_Programa.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFcX1Byb2dyYW1hLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_ProgramaActualizar.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_ProgramaActualizar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFcX1Byb2dyYW1hQWN0dWFsaXphci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_Propietario.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Programa/_Propietario.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFcX1Byb3BpZXRhcmlvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/Error.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/_LinkReferencia.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/_LinkReferencia.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MaW5rUmVmZXJlbmNpYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/_ViewImports.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/_ViewStart.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/_Layout.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-i4r7iqdh97
 
-[E:/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/_LayoutLimpio.cshtml]
+[D:/Desarrollos/InmobiliariaWeb/InmobiliariaWeb/Views/Shared/_LayoutLimpio.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMaW1waW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-zro252e94h
